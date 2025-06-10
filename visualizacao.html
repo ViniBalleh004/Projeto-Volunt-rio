@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Necessidades</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <nav>
+      <h1>Plataforma de Conexão Voluntária</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cadastro.html">Cadastrar Necessidade</a></li>
+        <li><a href="visualizacao.html">Ver Necessidades</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main>
+    <section class="visualizacao-section">
+      <h2>Oportunidades de Voluntariado</h2>
+      <div class="filtros">
+        <div class="form-group">
+          <label for="pesquisa">Pesquisar:</label>
+          <input type="text" id="pesquisa" name="pesquisa" placeholder="Digite uma palavra-chave">
+        </div>
+        <div class="form-group">
+          <label for="filtroTipo">Filtrar por Tipo:</label>
+          <select id="filtroTipo" name="filtroTipo">
+            <option value="">Todos</option>
+            <option value="Educacao">Educação</option>
+            <option value="Saude">Saúde</option>
+            <option value="MeioAmbiente">Meio Ambiente</option>
+            <option value="DoacaoAlimentos">Doação de Alimentos</option>
+            <option value="DoacaoRoupas">Doação de Roupas</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </div>
+      </div>
+      <div id="listaNecessidades" class="necessidades-container">
+        <!-- Cards de necessidades serão inseridos aqui via JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 Plataforma de Conexão Voluntária. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/visualizacao.js"></script>
+</body>
+</html>
