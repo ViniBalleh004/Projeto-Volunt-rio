@@ -1,5 +1,5 @@
-// Array global para armazenar necessidades
-let necessidades = [];
+// Array global para armazenar necessidades (carregado do localStorage, se existir)
+let necessidades = JSON.parse(localStorage.getItem('necessidades')) || [];
 
 // Função para validar e-mail
 function validarEmail(email) {
@@ -49,6 +49,10 @@ document.getElementById('formNecessidade').addEventListener('submit', (e) => {
   const titulo = document.getElementById('titulo').value.trim();
   const descricao = document.getElementById('descricao').value.trim();
   const cep = document.getElementById('cep').value.trim();
+  const rua = document.getElementById('rua').value.trim();
+  const bairro = document.getElementById('bairro').value.trim();
+  const cidade = document.getElementById('cidade').value.trim();
+  const estado = document.getElementById('estado').value.trim();
   const contato = document.getElementById('contato').value.trim();
 
   // Validação dos campos obrigatórios
@@ -69,5 +73,25 @@ document.getElementById('formNecessidade').addEventListener('submit', (e) => {
     return;
   }
 
-  // Lógica de armazenamento será implementada
+  // Cria objeto da necessidade
+  const necessidade = {
+    id: Date.now(), // ID único baseado no timestamp
+    nomeInstituicao,
+    tipoAjuda,
+    titulo,
+    descricao,
+    cep,
+    rua,
+    bairro,
+    cidade,
+    estado,
+    contato
+  };
+
+  // Adiciona ao array e salva no localStorage
+  necessidades.push(necessidade);
+  localStorage.setItem('necessidades', JSON.stringify(necessidades));
+
+  alert('Necessidade cadastrada com sucesso!');
+  document.getElementById('formNecessidade').reset();
 });
