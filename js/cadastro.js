@@ -13,6 +13,32 @@ function validarTelefone(telefone) {
   return regex.test(telefone);
 }
 
+// Função para buscar endereço via API ViaCEP
+function buscarCEP() {
+  const cep = document.getElementById('cep').value.replace(/\D/g, '');
+  if (cep.length !== 8) {
+    alert('Por favor, insira um CEP válido com 8 dígitos.');
+    return;
+  }
+
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.erro) {
+        alert('CEP não encontrado.');
+        return;
+      }
+      document.getElementById('rua').value = data.logradouro || '';
+      document.getElementById('bairro').value = data.bairro || '';
+      document.getElementById('cidade').value = data.localidade || '';
+      document.getElementById('estado').value = data.uf || '';
+    })
+    .catch(error => {
+      console.error('Erro ao buscar CEP:', error);
+      alert('Erro ao consultar o CEP. Tente novamente.');
+    });
+}
+
 // Manipula o envio do formulário
 document.getElementById('formNecessidade').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -34,6 +60,12 @@ document.getElementById('formNecessidade').addEventListener('submit', (e) => {
   // Validação do contato (e-mail ou telefone)
   if (!validarEmail(contato) && !validarTelefone(contato)) {
     alert('Por favor, insira um e-mail ou telefone válido.');
+    return;
+  }
+
+  // Validação do CEP
+  if (cep.replace(/\D/g, '').length !== 8) {
+    alert('Por favor, insira um CEP válido com 8 dígitos.');
     return;
   }
 
