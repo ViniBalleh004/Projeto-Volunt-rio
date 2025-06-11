@@ -15,12 +15,14 @@ function validarTelefone(telefone) {
 
 // Função para buscar endereço via API ViaCEP
 function buscarCEP() {
+  // Remove caracteres não numéricos do CEP
   const cep = document.getElementById('cep').value.replace(/\D/g, '');
   if (cep.length !== 8) {
     alert('Por favor, insira um CEP válido com 8 dígitos.');
     return;
   }
 
+  // Faz requisição à API ViaCEP
   fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then(response => response.json())
     .then(data => {
@@ -28,6 +30,7 @@ function buscarCEP() {
         alert('CEP não encontrado.');
         return;
       }
+      // Preenche os campos de endereço
       document.getElementById('rua').value = data.logradouro || '';
       document.getElementById('bairro').value = data.bairro || '';
       document.getElementById('cidade').value = data.localidade || '';
