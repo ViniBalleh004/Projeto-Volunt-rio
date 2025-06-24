@@ -1,11 +1,12 @@
 // Carrega as necessidades do localStorage
 let necessidades = JSON.parse(localStorage.getItem('necessidades')) || [];
 
-// Função para exibir as necessidades em cards
+// Exibe as necessidades em formato de cards na página
 function exibirNecessidades(lista) {
   const container = document.getElementById('listaNecessidades');
-  container.innerHTML = ''; // Limpa o container
+  container.innerHTML = ''; // Limpa o container antes de exibir
 
+  // Cria um card para cada necessidade
   lista.forEach(necessidade => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -20,25 +21,25 @@ function exibirNecessidades(lista) {
     container.appendChild(card);
   });
 
-  // Exibe mensagem se não houver necessidades
+  // Exibe mensagem se não houver resultados
   if (lista.length === 0) {
     container.innerHTML = '<p>Nenhuma necessidade encontrada.</p>';
   }
 }
 
-// Função para filtrar e pesquisar
+// Filtra e pesquisa as necessidades com base nos inputs do usuário
 function filtrarEPesquisar() {
   const pesquisa = document.getElementById('pesquisa').value.toLowerCase();
   const filtroTipo = document.getElementById('filtroTipo').value;
 
   let resultados = necessidades;
 
-  // Aplica filtro por tipo de ajuda
+  // Aplica filtro por tipo de ajuda, se selecionado
   if (filtroTipo) {
     resultados = resultados.filter(n => n.tipoAjuda === filtroTipo);
   }
 
-  // Aplica pesquisa por palavra-chave
+  // Aplica pesquisa por palavra-chave no título ou descrição
   if (pesquisa) {
     resultados = resultados.filter(n =>
       n.titulo.toLowerCase().includes(pesquisa) ||
@@ -49,9 +50,9 @@ function filtrarEPesquisar() {
   exibirNecessidades(resultados);
 }
 
-// Inicializa a exibição
+// Inicializa a exibição com todas as necessidades
 exibirNecessidades(necessidades);
 
-// Adiciona eventos para pesquisa e filtro
+// Adiciona eventos para atualizar a exibição em tempo real
 document.getElementById('pesquisa').addEventListener('input', filtrarEPesquisar);
 document.getElementById('filtroTipo').addEventListener('change', filtrarEPesquisar);
