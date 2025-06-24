@@ -19,6 +19,11 @@ function exibirNecessidades(lista) {
     `;
     container.appendChild(card);
   });
+
+  // Exibe mensagem se não houver necessidades
+  if (lista.length === 0) {
+    container.innerHTML = '<p>Nenhuma necessidade encontrada.</p>';
+  }
 }
 
 // Função para filtrar e pesquisar
