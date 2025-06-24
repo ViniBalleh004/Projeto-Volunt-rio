@@ -2,11 +2,11 @@
 let necessidades = JSON.parse(localStorage.getItem('necessidades')) || [];
 
 // Função para exibir as necessidades em cards
-function exibirNecessidades() {
+function exibirNecessidades(lista) {
   const container = document.getElementById('listaNecessidades');
   container.innerHTML = ''; // Limpa o container
 
-  necessidades.forEach(necessidade => {
+  lista.forEach(necessidade => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -21,5 +21,18 @@ function exibirNecessidades() {
   });
 }
 
+// Função para pesquisar
+function pesquisarNecessidades() {
+  const pesquisa = document.getElementById('pesquisa').value.toLowerCase();
+  const resultados = necessidades.filter(n =>
+    n.titulo.toLowerCase().includes(pesquisa) ||
+    n.descricao.toLowerCase().includes(pesquisa)
+  );
+  exibirNecessidades(resultados);
+}
+
 // Inicializa a exibição
-exibirNecessidades();
+exibirNecessidades(necessidades);
+
+// Adiciona evento de pesquisa
+document.getElementById('pesquisa').addEventListener('input', pesquisarNecessidades);
