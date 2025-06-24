@@ -21,18 +21,32 @@ function exibirNecessidades(lista) {
   });
 }
 
-// Função para pesquisar
-function pesquisarNecessidades() {
+// Função para filtrar e pesquisar
+function filtrarEPesquisar() {
   const pesquisa = document.getElementById('pesquisa').value.toLowerCase();
-  const resultados = necessidades.filter(n =>
-    n.titulo.toLowerCase().includes(pesquisa) ||
-    n.descricao.toLowerCase().includes(pesquisa)
-  );
+  const filtroTipo = document.getElementById('filtroTipo').value;
+
+  let resultados = necessidades;
+
+  // Aplica filtro por tipo de ajuda
+  if (filtroTipo) {
+    resultados = resultados.filter(n => n.tipoAjuda === filtroTipo);
+  }
+
+  // Aplica pesquisa por palavra-chave
+  if (pesquisa) {
+    resultados = resultados.filter(n =>
+      n.titulo.toLowerCase().includes(pesquisa) ||
+      n.descricao.toLowerCase().includes(pesquisa)
+    );
+  }
+
   exibirNecessidades(resultados);
 }
 
 // Inicializa a exibição
 exibirNecessidades(necessidades);
 
-// Adiciona evento de pesquisa
-document.getElementById('pesquisa').addEventListener('input', pesquisarNecessidades);
+// Adiciona eventos para pesquisa e filtro
+document.getElementById('pesquisa').addEventListener('input', filtrarEPesquisar);
+document.getElementById('filtroTipo').addEventListener('change', filtrarEPesquisar);
